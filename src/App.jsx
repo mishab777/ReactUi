@@ -5,6 +5,8 @@ import Home from './Pages/Dashboard'
 import Navbar from './components/Navbar'
 import { ThemeProvider} from '@emotion/react'
 import { createTheme } from '@mui/material'
+import Weather from './Weather/Weather'
+import Task from './Pages/Task'
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
     <Routes>
         <Route path='/example' element={<Example />}></Route>
         <Route path='/' element={<Home />}></Route>
+        <Route path='/weather' element={<Weather />}></Route>
+        <Route path='/task' element={<Task />}></Route>
     </Routes>
   </BrowserRouter>
   </ThemeProvider>

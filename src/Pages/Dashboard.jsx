@@ -12,6 +12,10 @@ import { useDrawingArea } from '@mui/x-charts/hooks';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import { BarChart } from '@mui/x-charts/BarChart';
+import { axisClasses } from '@mui/x-charts/ChartsAxis';
+import { dataset, valueFormatter } from '../Charts/Sales.js';
+import { expenset, valueFormatterexpense } from '../Charts/Expenses.js';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -25,9 +29,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const data = [
-  { value: 25,color:"#90c64a"},
-  { value: 10,color:"#1976D2"},
-  { value: 8,color:"#EE8EAE"},
+  { value: 25,color:"#725C3A"},
+  { value: 10,color:"#D2AB80"},
+  { value: 8,color:"#809671"},
 ];
 
 const size = {
@@ -35,11 +39,86 @@ const size = {
   height: 200,
 };
 
+const chartSetting = {
+  yAxis: [
+    {
+      label: 'rainfall (mm)',
+    },
+  ],
+  width: 600,
+  height: 300,
+  sx: {
+    [`.${axisClasses.left} .${axisClasses.label}`]: {
+      transform: 'translate(-20px, 0)',
+    },
+    [`.${axisClasses.left} .${axisClasses.axisLine}`]: {
+      stroke: '#fff', 
+    },
+    [`.${axisClasses.left} .${axisClasses.tick}`]: {
+      stroke: '#fff', 
+    },
+    [`.${axisClasses.left} .${axisClasses.tickLabel}`]: {
+      fill: '#fff', 
+    },
+    [`.${axisClasses.bottom} .${axisClasses.label}`]: {
+      transform: 'translate(-20px, 0)',
+    },
+    [`.${axisClasses.bottom} .${axisClasses.axisLine}`]: {
+      stroke: '#fff', 
+      strokeWidth: 2, 
+    },
+    [`.${axisClasses.bottom} .${axisClasses.tick}`]: {
+      stroke: '#fff', 
+    },
+    [`.${axisClasses.bottom} .${axisClasses.tickLabel}`]: {
+      fill: '#fff', 
+    },
+  },
+};
+
+const chartSettingBar = {
+  yAxis: [
+    {
+      label: 'rainfall (mm)',
+    },
+  ],
+  width: 600,
+  height: 200,
+  sx: {
+    [`.${axisClasses.left} .${axisClasses.label}`]: {
+      transform: 'translate(-20px, 0)',
+    },
+    [`.${axisClasses.left} .${axisClasses.axisLine}`]: {
+      stroke: '#fff', 
+    },
+    [`.${axisClasses.left} .${axisClasses.tick}`]: {
+      stroke: '#fff', 
+    },
+    [`.${axisClasses.left} .${axisClasses.tickLabel}`]: {
+      fill: '#fff', 
+    },
+    [`.${axisClasses.bottom} .${axisClasses.label}`]: {
+      transform: 'translate(-20px, 0)',
+    },
+    [`.${axisClasses.bottom} .${axisClasses.axisLine}`]: {
+      stroke: '#fff', 
+      strokeWidth: 2, 
+    },
+    [`.${axisClasses.bottom} .${axisClasses.tick}`]: {
+      stroke: '#fff', 
+    },
+    [`.${axisClasses.bottom} .${axisClasses.tickLabel}`]: {
+      fill: '#fff', 
+    },
+  },
+};
+
 const StyledText = styled('text')(({ theme }) => ({
   fill: "#fff",
   textAnchor: 'middle',
   dominantBaseline: 'central',
   fontSize: 25,
+  fontFamily:'"Outfit", serif;'
 }));
 
 function PieCenterLabel({ children }) {
@@ -51,12 +130,19 @@ function PieCenterLabel({ children }) {
   );
 }
 
+const Totaldata ={
+  Advertising:35,
+  Development:25,
+  Management:17,
+  Sales:23
+}
+
 export default function Dashboard() {
   return (
     <Box
      sx={{
       width:'100%',
-     backgroundImage:'linear-gradient(to right, #354E17, #000)',
+     backgroundImage:'linear-gradient(to right, #fff,#d1d1d1)',
      height:'auto',
      }}>
     <Box sx={{
@@ -80,12 +166,12 @@ export default function Dashboard() {
         <Typography sx={{
           fontSize:'25px',
           fontWeight:600,
-          color:"white"
+          color:"#3C3633"
         }}>
           Dashboard
         </Typography>
         <Box sx={{
-          backgroundColor: '#000',
+          backgroundColor: '#817773',
           borderRadius:'30px',
           display:'flex',
           flexDirection:'row',
@@ -96,7 +182,7 @@ export default function Dashboard() {
           <SearchIcon sx={{
             color:'white'
           }}/>
-          <TextField id="outlined-search" variant='standard' type="search"  sx={{
+          <TextField variant='standard' type="search"  sx={{
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
         border: 'none', 
@@ -112,7 +198,7 @@ export default function Dashboard() {
       outline: 'none', 
     },
     input: {
-      border: 'none', 
+      border: 'hidden', 
       outline: 'none', 
       color:'white',
       fontSize:'14px'
@@ -130,7 +216,7 @@ export default function Dashboard() {
       }}>
          <Typography sx={{
           fontSize:'16px',
-          color:"white",
+          color:"#3C3633",
           cursor:'pointer',
          }}>
           Download Report
@@ -140,9 +226,9 @@ export default function Dashboard() {
             flexDirection:'row',
             alignItems:'center',
             justifyContent:'center',
-            backgroundColor:'#90c64a',
+            backgroundColor:'#817773',
             textTransform:'none',
-            color:"#000",
+            color:"#EEEDEB",
             borderRadius:'30px',
             paddingRight:'10px',
             fontSize:'12px'
@@ -155,22 +241,18 @@ export default function Dashboard() {
         </Box>
       </Box>  
       <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={4}>
+      <Grid container spacing={1} padding={2}>
         <Grid size={{xs:12,md:6}}>
           <Grid container spacing={1}>
       <Grid size={{xs:12,md:6}}>
-        <Item sx={{
-          background:'none',
-          boxShadow:'none',
-          gap:'10px'
-        }}>     
+    
            <Box sx={{
             borderRadius:'10px',
             width:{
-              xs:'90%',
+              xs:'100%',
               md:'100%'
             },
-        backgroundImage:'linear-gradient(to right bottom, #d7e9c1, #d7e9c1, #d7e9c1, #d7e9c1, #d7e9c1);',
+        backgroundColor:'#A38F85',
         display:'flex',
         flexDirection:'column',
         alignItems:'flex-start',
@@ -186,22 +268,22 @@ export default function Dashboard() {
           position:'absolute',
           top:'20px',
           right:'20px',
-          color:'#000'
+          color:'#EEEDEB'
         }}/>
         <Typography sx={{
-          color:'black',
+          color:'#EEEDEB',
           fontWeight:600,
         }} variant='h5'>
           300
         </Typography>
         <Typography sx={{
-          color:'black',
+          color:'#EEEDEB',
           textAlign:'start'
         }} variant='body1'>
           Total volume of services <br /> provided
         </Typography>
         <Typography sx={{
-          color:'black',
+          color:'#EEEDEB',
           display:'flex',
           flexDirection:'row',
           alignItems:'center',
@@ -209,16 +291,18 @@ export default function Dashboard() {
           gap:'5px'
         }} variant='body1'>
           More Detail
-          <ArrowOutwardIcon/>
+          <ArrowOutwardIcon sx={{
+            color:'#EEEDEB'
+          }}/>
         </Typography>
       </Box>
       <Box sx={{
             borderRadius:'10px',
             width:{
-              xs:'90%',
+              xs:'100%',
               md:'100%'
             },
-        backgroundColor:'#000',
+        backgroundColor:'#E0CCBE',
         display:'flex',
         flexDirection:'column',
         alignItems:'flex-start',
@@ -227,28 +311,29 @@ export default function Dashboard() {
         paddingBottom:'10px',
         gap:'5px',
         paddingLeft:'20px',
-        position:'relative'
+        position:'relative',
+        marginBottom:'10px'
       }}>
         <PeopleAltIcon sx={{
           position:'absolute',
           top:'20px',
           right:'20px',
-          color:'#fff'
+          color:'#3C3633'
         }}/>
         <Typography sx={{
-          color:'white',
+          color:'#3C3633',
           fontWeight:600,
         }} variant='h5'>
           75
         </Typography>
         <Typography sx={{
-          color:'white',
+          color:'#3C3633',
           textAlign:'start'
         }} variant='body1'>
           No of new clients
         </Typography>
         <Typography sx={{
-          color:'white',
+          color:'#3C3633',
           display:'flex',
           flexDirection:'row',
           alignItems:'center',
@@ -259,30 +344,144 @@ export default function Dashboard() {
           <ArrowOutwardIcon/>
         </Typography>
       </Box>
-      </Item>
+      <Grid container spacing={1} >
+        <Grid size={{xs:6,md:6}}>
+          <Box sx={{
+            width:'100%',
+            height:'auto',
+            padding:'15px',
+            background:'#C58C6E',
+            borderRadius:'10px',
+            display:'flex',
+            flexDirection:'column',
+            alignItems:'flex-start',
+            justifyContent:'center',
+            position:'relative'
+          }}>
+            <Typography color='white' variant='h6'>
+            {Totaldata.Advertising}%
+            </Typography>
+            <Typography sx={{
+              color:'#fff'
+            }} variant='body2'>
+              Advertising
+            </Typography>
+            <ArrowOutwardIcon sx={{
+              color:'#fff',
+              position:'absolute',
+              top:'10px',
+              right:'10px'
+            }}/>
+          </Box>
+        </Grid>
+        <Grid size={{xs:6,md:6}}>
+        <Box sx={{
+            width:'100%',
+            height:'auto',
+            padding:'15px',
+            background:'#C58C6E',
+            borderRadius:'10px',
+            display:'flex',
+            flexDirection:'column',
+            alignItems:'flex-start',
+            justifyContent:'center',
+            position:'relative'
+          }}>
+            <Typography color='white' variant='h6'>
+            {Totaldata.Development}%
+            </Typography>
+            <Typography sx={{
+              color:'#fff'
+            }} variant='body2'>
+              Development
+            </Typography>
+            <ArrowOutwardIcon sx={{
+              color:'#fff',
+              position:'absolute',
+              top:'10px',
+              right:'10px'
+            }}/>
+          </Box>
+        </Grid>
+        <Grid size={{xs:6,md:6}}>
+        <Box sx={{
+            width:'100%',
+            height:'auto',
+            padding:'15px',
+            background:'#C58C6E',
+            borderRadius:'10px',
+            display:'flex',
+            flexDirection:'column',
+            alignItems:'flex-start',
+            justifyContent:'center',
+            position:'relative'
+          }}>
+            <Typography color='white' variant='h6'>
+            {Totaldata.Sales}%
+            </Typography>
+            <Typography sx={{
+              color:'#fff'
+            }} variant='body2'>
+              Sales
+            </Typography>
+            <ArrowOutwardIcon sx={{
+              color:'#fff',
+              position:'absolute',
+              top:'10px',
+              right:'10px'
+            }}/>
+          </Box>
+        </Grid>
+        <Grid size={{xs:6,md:6}}>
+        <Box sx={{
+            width:'100%',
+            height:'auto',
+            padding:'15px',
+            background:'#C58C6E',
+            borderRadius:'10px',
+            display:'flex',
+            flexDirection:'column',
+            alignItems:'flex-start',
+            justifyContent:'center',
+            position:'relative'
+          }}>
+            <Typography color='white' variant='h6'>
+              {Totaldata.Management}%
+            </Typography>
+            <Typography sx={{
+              color:'#fff'
+            }} variant='body2'>
+              Management
+            </Typography>
+            <ArrowOutwardIcon sx={{
+              color:'#fff',
+              position:'absolute',
+              top:'10px',
+              right:'10px'
+            }}/>
+          </Box>
+        </Grid>
+      </Grid>
       </Grid>
       <Grid size={{xs:12,md:6}}>
-        <Item sx={{
-          background:'none',
-          boxShadow:'none',
-        }}>
         <Box sx={{
             borderRadius:'10px',
         width:{
-          xs:'80%',
+          xs:'100%',
           md:'100%'
         },
-        backgroundColor:'#000',
+        backgroundColor:'#D4B2A7',
         display:'flex',
+        height:'100%',
         flexDirection:'column',
         alignItems:'flex-start',
-        justifyContent:'center',
-        padding:'20px',
+        justifyContent:'space-between',
+        padding:'15px',
         gap:'5px',
       }}>
         <Typography sx={{
-          color:'white',
-          fontWeight:400
+          color:'#3C3633',
+          fontWeight:500
         }} variant='h6'>
           Customer Satisfaction
         </Typography>
@@ -295,8 +494,8 @@ export default function Dashboard() {
           height: size.height,
         }}
       >
-        <PieChart series={[{ data, innerRadius: 85 }]}>
-          <PieCenterLabel>$19 530</PieCenterLabel>
+        <PieChart series={[{ data, innerRadius: 85,color:'#3C3633' }]}>
+          <PieCenterLabel >$19 530</PieCenterLabel>
         </PieChart>
       </Box>
       <Box sx={{
@@ -307,16 +506,16 @@ export default function Dashboard() {
          justifyContent:'space-between',
       }}>
       <Typography sx={{
-        color:'#fff',
+        color:'#3C3633',
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
       }} variant='body1'>
         <FiberManualRecordIcon sx={{
-        color:'#90c64a'
+        color:'#725C3A',
       }}/>Promoters</Typography>
       <Typography sx={{
-        color:'#fff',
+        color:'#3C3633',
       }} variant='body1'>
         75%
       </Typography>
@@ -329,16 +528,16 @@ export default function Dashboard() {
          justifyContent:'space-between',
       }}>
       <Typography sx={{
-        color:'#fff',
+        color:'#3C3633',
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
       }} variant='body1'>
         <FiberManualRecordIcon sx={{
-        color:'#1976D2'
+        color:'#D2AB80'
       }}/>Detractors</Typography>
       <Typography sx={{
-        color:'#fff',
+        color:'#3C3633',
       }} variant='body1'>
         15%
       </Typography>
@@ -351,16 +550,16 @@ export default function Dashboard() {
          justifyContent:'space-between',
       }}>
       <Typography sx={{
-        color:'#fff',
+        color:'#3C3633',
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
       }} variant='body1'>
         <FiberManualRecordIcon sx={{
-        color:'#EE8EAE'
+        color:'#809671'
       }}/>Passives</Typography>
       <Typography sx={{
-        color:'#fff',
+        color:'#3C3633',
       }} variant='body1'>
         10%
       </Typography>
@@ -368,35 +567,192 @@ export default function Dashboard() {
       <Button sx={{
         width:'100%',
         borderRadius:'10px',
-        backgroundColor:'#424242',
+        backgroundColor:'#A38F85',
         textTransform:'none',
-        color:'white',
+        color:'#3C3633',
         marginTop:'5px'
 
       }}>More Detail<ArrowOutwardIcon/></Button>
       </Box>
-        </Item>
+      </Grid>
+      <Grid size={{xs:12,md:12}}>
+        <Box sx={{
+          display:{
+            xs:'none',
+            md:'flex'
+          },
+          flexDirection:'column',
+            width:'100%',
+            backgroundColor:"#A38F85",
+            height:'auto',
+            borderRadius:'10px',
+            padding:'15px',
+        }}>
+          <Typography sx={{
+          color:'white',
+          fontWeight:400,
+          textAlign:'start',
+          marginBottom:'10px'
+        }} variant='h6'>
+          Operating Expenses
+        </Typography>
+        <Box sx={{
+              width:'100%',
+              backgroundColor:"#A38F85",
+              height:'auto',
+            }}>
+              <BarChart
+      dataset={expenset}
+      xAxis={[{ scaleType: 'band', dataKey: 'source', }]}
+      series={[
+        { dataKey: 'data', valueFormatter,color:'#E0CCBE' },
+      ]}
+      {...chartSettingBar}
+    />
+
+              </Box>
+        </Box>
       </Grid>
     </Grid>
         </Grid>
         <Grid size={{xs:12,md:6}}>
-          <Item
-          sx={{
-            background:'none',
-            boxShadow:'none'
-          }}>
             <Box sx={{
-              width:{
-                xs:'90%',
-                md:'100%'
-              },
-              backgroundColor:"#000",
-              height:'100px',
-              borderRadius:'10px'
+              width:'100%',
+              backgroundColor:"#E0CCBE",
+              height:'auto',
+              borderRadius:'10px',
+              paddingLeft:'15px',
+              paddingTop:'10px',
+              paddingBottom:'10px',
+              position:'relative',
+              marginBottom:'10px'
             }}>
+                 <Typography sx={{
+          color:'#3C3633',
+          fontWeight:500,
+          textAlign:'start',
+          marginBottom:'10px'
+        }} variant='h6'>
+          Coorperate Year Plan
+        </Typography>
+        <Grid container spacing={1}>
+          <Grid size={{xs:12,md:7}}>
+            <Box sx={{
+              width:'100%',
+              height:'auto',
+              display:'flex',
+              flexDirection:'column',
+              alignItems:'flex-start',
+              justifyContent:'center',
+              paddingLeft:'10px',
+              borderLeft:'1px solid #3C3633'
+            }}>
+              <Typography sx={{
+                color:'#3C3633'
+              }} variant='body2'>
+                Current Result
+              </Typography>
+              <Typography sx={{
+                color:'#3C3633'
+              }} variant='h6'>
+                $52,654,450
+              </Typography>
+              <Box sx={{
+                marginTop:'10px',
+                backgroundImage:'linear-gradient(to right, #3C3633,#817773)',
+                width:'90%',
+                height:'30px',
+                borderRadius:'5px'
+              }}>
 
+              </Box>
             </Box>
-          </Item>
+          </Grid>
+          <Grid size={{xs:12,md:5}}>
+          <Box sx={{
+              width:'100%',
+              height:'auto',
+              display:'flex',
+              flexDirection:'column',
+              alignItems:'flex-start',
+              justifyContent:'center',
+              paddingLeft:'10px',
+              borderLeft:'1px solid #616161',
+            }}>
+              <Typography sx={{
+                color:'#3C3633'
+              }} variant='body2'>
+                Left Pain
+              </Typography>
+              <Typography sx={{
+                color:'#3C3633'
+              }} variant='h6'>
+                $7,566,116
+              </Typography>
+              <Box sx={{
+                marginTop:'10px',
+                backgroundImage:'linear-gradient(to right, #3C3633,#817773)',
+                width:'90%',
+                height:'30px',
+                borderRadius:'5px'
+              }}>
+
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+        <Typography variant='body2' sx={{
+                color:'#3C3633',
+                position:'absolute',
+                top:'10px',
+                right:'10px',
+              }}>
+                More Detail <ArrowOutwardIcon sx={{
+                  marginLeft:'5px',
+                  fontSize:'15px'
+                }}/>
+              </Typography>
+            </Box>
+            <Box sx={{
+                 display:{
+                  xs:'none',
+                  md:'flex'
+                },
+                flexDirection:'column',
+              width:'100%',
+              backgroundColor:"#CCC5B9",
+              height:'auto',
+              borderRadius:'10px',
+              paddingLeft:'15px',
+              paddingTop:'10px',
+              paddingBottom:'10px',
+              position:'relative'
+            }}>
+              <Typography sx={{
+          color:'#3C3633',
+          fontWeight:500,
+          textAlign:'start',
+          marginBottom:'10px'
+        }} variant='h6'>
+          Company Sales Target
+              </Typography>
+              <Box sx={{
+              width:'100%',
+              backgroundColor:"#CCC5B9",
+              height:'auto',
+            }}>
+              <BarChart
+      dataset={dataset}
+      xAxis={[{ scaleType: 'band', dataKey: 'month', }]}
+      series={[
+        { dataKey: 'sales', valueFormatter,color:'#809671' },
+        
+      ]}
+      {...chartSetting}
+    />
+
+              </Box>
+              </Box>
         </Grid>
       </Grid>
     </Box>

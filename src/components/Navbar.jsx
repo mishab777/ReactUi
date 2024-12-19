@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { useNavigate } from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
 import LineAxisIcon from '@mui/icons-material/LineAxis';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -39,9 +40,18 @@ export function Navbar() {
     setAnchorElUser(null);
   };
 
+  const navigate = useNavigate();
+
+  const handleweather = ()=>{
+    navigate('/weather')
+  }
+  const handletask = ()=>{
+    navigate('/task')
+  }
+
   return (
     <AppBar position="static" sx={{
-        backgroundImage:'linear-gradient(to right, #354E17, #000)',
+        backgroundImage:'linear-gradient(to right, #fff,#d1d1d1)',
         boxShadow:'none',
         height: '80px'
     }}>
@@ -61,7 +71,7 @@ export function Navbar() {
               display: { xs: 'none', md: 'flex',alignItems: 'center',justifyContent: 'center' },
               fontWeight: 700,
               letterSpacing: '.1rem',
-              color: 'inherit',
+              color: '#3C3633',
               textDecoration: 'none',
             }}
           >
@@ -78,7 +88,7 @@ export function Navbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="#524433"
             >
               <MenuIcon />
             </IconButton>
@@ -105,7 +115,7 @@ export function Navbar() {
               ))}
             </Menu>
           </Box>
-          <LineAxisIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1}}/>
+          <LineAxisIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1,color:'#524433'}}/>
           <Typography
             variant="h5"
             noWrap
@@ -117,7 +127,7 @@ export function Navbar() {
               flexGrow: 1,
               fontWeight: 700,
               letterSpacing: '.1rem',
-              color: 'inherit',
+              color: '#524433',
               textDecoration: 'none',
             }}
           >
@@ -131,39 +141,39 @@ export function Navbar() {
                  display:'flex',
                  alignItems:'center',
                  justifyContent:'center',
-                 backgroundColor:'black',
+                 backgroundColor:'#524433',
                  borderRadius:'30px',
                  marginTop:'10px',
                  gap:'8px'
             }}>
               <Button
-                sx={{ textTransform: 'none', my: 2, color: 'black', display: 'block',backgroundColor: '#90c64a',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '30px' }}
+                sx={{ textTransform: 'none', my: 2, color: 'black', display: 'block',backgroundColor: '#E0CCBE',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '30px' }}
               >
                 Dashboard     
               </Button>
-              <Button
-                sx={{ textTransform: 'none',my: 2, color: 'white', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
+              <Button onClick={handletask}
+                sx={{ textTransform: 'none',my: 2, color: '#EEEDEB', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
               >
                 Task     
               </Button>
-              <Button
-                sx={{ textTransform: 'none',my: 2, color: 'white', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
+              <Button onClick={handleweather}
+                sx={{ textTransform: 'none',my: 2, color: '#EEEDEB', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
               >
                 Weather     
               </Button>
               <Button
-                sx={{ textTransform: 'none',my: 2, color: 'white', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
+                sx={{ textTransform: 'none',my: 2, color: '#EEEDEB', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
               >
                 Employee     
               </Button>
               <Button
-                sx={{ textTransform: 'none',my: 2, color: 'white', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
+                sx={{ textTransform: 'none',my: 2, color: '#EEEDEB', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
               >
                 Report     
               </Button>
               </Box>
           </Box>
-          <Box sx={{ flexGrow: 0 ,flexDirection:'row',display: 'flex',alignItems:'center',justifyContent:'center'}}>
+          <Box sx={{ flexGrow: 0 ,flexDirection:'row',display: 'flex',alignItems:'center',justifyContent:'center',backgroundColor:'#524433',padding:'5px',borderRadius:'30px'}}>
             <Box
             component='img'
             src='https://img.freepik.com/premium-photo/happy-man-ai-generated-portrait-user-profile_1119669-1.jpg'
@@ -177,6 +187,7 @@ export function Navbar() {
             <Typography sx={{
                 fontSize: '12px',
                 marginLeft: '5px',
+                color:'#EEEDEB',
                 display:{
                     xs:'none',
                     md:'flex'
@@ -185,7 +196,9 @@ export function Navbar() {
                 Manuel Thomas
             </Typography>
             <Tooltip title="Open settings">
-                <KeyboardArrowDownIcon color='white' onClick={handleOpenUserMenu}/>
+                <KeyboardArrowDownIcon sx={{
+                  color:'#EEEDEB'
+                }} onClick={handleOpenUserMenu}/>
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
