@@ -16,6 +16,8 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
 import { dataset, valueFormatter } from '../Charts/Sales.js';
 import { expenset, valueFormatterexpense } from '../Charts/Expenses.js';
+import { AnimatePresence,motion } from 'framer-motion';
+import Navbar from '../components/Navbar.jsx';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -29,9 +31,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const data = [
-  { value: 25,color:"#725C3A"},
-  { value: 10,color:"#D2AB80"},
-  { value: 8,color:"#809671"},
+  { value: 25,color:"#fff"},
+  { value: 10,color:"#00DFE1"},
+  { value: 8,color:"#777EFD"},
 ];
 
 const size = {
@@ -139,10 +141,19 @@ const Totaldata ={
 
 export default function Dashboard() {
   return (
+    <>
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, x: "-100vw" }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: "100vw" }}
+        transition={{ duration: 0.5 }}
+      >
+    <Navbar/>
     <Box
      sx={{
       width:'100%',
-     backgroundImage:'linear-gradient(to right, #fff,#d1d1d1)',
+     backgroundImage:'linear-gradient(to right, #fff,#00A9F2)',
      height:'auto',
      }}>
     <Box sx={{
@@ -166,12 +177,12 @@ export default function Dashboard() {
         <Typography sx={{
           fontSize:'25px',
           fontWeight:600,
-          color:"#3C3633"
+          color:"#00A9F2"
         }}>
           Dashboard
         </Typography>
         <Box sx={{
-          backgroundColor: '#817773',
+          backgroundColor: '#fff',
           borderRadius:'30px',
           display:'flex',
           flexDirection:'row',
@@ -180,7 +191,7 @@ export default function Dashboard() {
           padding:'8px',
         }}>
           <SearchIcon sx={{
-            color:'white'
+            color:'#00A9F2'
           }}/>
           <TextField variant='standard' type="search"  sx={{
     '& .MuiOutlinedInput-root': {
@@ -200,7 +211,7 @@ export default function Dashboard() {
     input: {
       border: 'hidden', 
       outline: 'none', 
-      color:'white',
+      color:'#00A9F2',
       fontSize:'14px'
     },
   }} placeholder='Type to search for...'/>
@@ -216,7 +227,7 @@ export default function Dashboard() {
       }}>
          <Typography sx={{
           fontSize:'16px',
-          color:"#3C3633",
+          color:"#fff",
           cursor:'pointer',
          }}>
           Download Report
@@ -226,9 +237,9 @@ export default function Dashboard() {
             flexDirection:'row',
             alignItems:'center',
             justifyContent:'center',
-            backgroundColor:'#817773',
+            backgroundColor:'#fff',
             textTransform:'none',
-            color:"#EEEDEB",
+            color:"#00A9F2",
             borderRadius:'30px',
             paddingRight:'10px',
             fontSize:'12px'
@@ -252,7 +263,7 @@ export default function Dashboard() {
               xs:'100%',
               md:'100%'
             },
-        backgroundColor:'#A38F85',
+        backgroundImage:'linear-gradient(to right, #00A9F2,#00E2E0)',
         display:'flex',
         flexDirection:'column',
         alignItems:'flex-start',
@@ -302,7 +313,7 @@ export default function Dashboard() {
               xs:'100%',
               md:'100%'
             },
-        backgroundColor:'#E0CCBE',
+        backgroundImage:'linear-gradient(to right, #787CFE,#48BED9)',
         display:'flex',
         flexDirection:'column',
         alignItems:'flex-start',
@@ -318,22 +329,22 @@ export default function Dashboard() {
           position:'absolute',
           top:'20px',
           right:'20px',
-          color:'#3C3633'
+          color:'#fff'
         }}/>
         <Typography sx={{
-          color:'#3C3633',
+          color:'#fff',
           fontWeight:600,
         }} variant='h5'>
           75
         </Typography>
         <Typography sx={{
-          color:'#3C3633',
+          color:'#fff',
           textAlign:'start'
         }} variant='body1'>
           No of new clients
         </Typography>
         <Typography sx={{
-          color:'#3C3633',
+          color:'#fff',
           display:'flex',
           flexDirection:'row',
           alignItems:'center',
@@ -350,7 +361,7 @@ export default function Dashboard() {
             width:'100%',
             height:'auto',
             padding:'15px',
-            background:'#C58C6E',
+            backgroundImage:'linear-gradient(to right, #172D9D,#787CFE)',
             borderRadius:'10px',
             display:'flex',
             flexDirection:'column',
@@ -379,7 +390,7 @@ export default function Dashboard() {
             width:'100%',
             height:'auto',
             padding:'15px',
-            background:'#C58C6E',
+            backgroundImage:'linear-gradient(to right, #172D9D,#787CFE)',
             borderRadius:'10px',
             display:'flex',
             flexDirection:'column',
@@ -408,7 +419,7 @@ export default function Dashboard() {
             width:'100%',
             height:'auto',
             padding:'15px',
-            background:'#C58C6E',
+            backgroundImage:'linear-gradient(to right, #172D9D,#787CFE)',
             borderRadius:'10px',
             display:'flex',
             flexDirection:'column',
@@ -437,7 +448,7 @@ export default function Dashboard() {
             width:'100%',
             height:'auto',
             padding:'15px',
-            background:'#C58C6E',
+            backgroundImage:'linear-gradient(to right, #172D9D,#787CFE)',
             borderRadius:'10px',
             display:'flex',
             flexDirection:'column',
@@ -470,7 +481,7 @@ export default function Dashboard() {
           xs:'100%',
           md:'100%'
         },
-        backgroundColor:'#D4B2A7',
+        backgroundImage:'linear-gradient(to bottom, #00A9F2,#172D9D)',
         display:'flex',
         height:'100%',
         flexDirection:'column',
@@ -480,7 +491,7 @@ export default function Dashboard() {
         gap:'5px',
       }}>
         <Typography sx={{
-          color:'#3C3633',
+          color:'#fff',
           fontWeight:500
         }} variant='h6'>
           Customer Satisfaction
@@ -506,16 +517,16 @@ export default function Dashboard() {
          justifyContent:'space-between',
       }}>
       <Typography sx={{
-        color:'#3C3633',
+        color:'#fff',
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
       }} variant='body1'>
         <FiberManualRecordIcon sx={{
-        color:'#725C3A',
+        color:'#fff',
       }}/>Promoters</Typography>
       <Typography sx={{
-        color:'#3C3633',
+        color:'#fff',
       }} variant='body1'>
         75%
       </Typography>
@@ -528,16 +539,16 @@ export default function Dashboard() {
          justifyContent:'space-between',
       }}>
       <Typography sx={{
-        color:'#3C3633',
+        color:'#fff',
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
       }} variant='body1'>
         <FiberManualRecordIcon sx={{
-        color:'#D2AB80'
+        color:'#00DFE1'
       }}/>Detractors</Typography>
       <Typography sx={{
-        color:'#3C3633',
+        color:'#fff',
       }} variant='body1'>
         15%
       </Typography>
@@ -550,16 +561,16 @@ export default function Dashboard() {
          justifyContent:'space-between',
       }}>
       <Typography sx={{
-        color:'#3C3633',
+        color:'#fff',
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
       }} variant='body1'>
         <FiberManualRecordIcon sx={{
-        color:'#809671'
+        color:'#777EFD'
       }}/>Passives</Typography>
       <Typography sx={{
-        color:'#3C3633',
+        color:'#fff',
       }} variant='body1'>
         10%
       </Typography>
@@ -567,9 +578,9 @@ export default function Dashboard() {
       <Button sx={{
         width:'100%',
         borderRadius:'10px',
-        backgroundColor:'#A38F85',
+        backgroundColor:'#fff',
         textTransform:'none',
-        color:'#3C3633',
+        color:'#00A9F2',
         marginTop:'5px'
 
       }}>More Detail<ArrowOutwardIcon/></Button>
@@ -583,7 +594,7 @@ export default function Dashboard() {
           },
           flexDirection:'column',
             width:'100%',
-            backgroundColor:"#A38F85",
+            backgroundImage:'linear-gradient(to right, #00A9F2,#00E2E0)',
             height:'auto',
             borderRadius:'10px',
             padding:'15px',
@@ -598,14 +609,15 @@ export default function Dashboard() {
         </Typography>
         <Box sx={{
               width:'100%',
-              backgroundColor:"#A38F85",
+              backgroundImage:'linear-gradient(to right, #00A9F2,#00E2E0)',
               height:'auto',
+              overflow:'hidden'
             }}>
               <BarChart
       dataset={expenset}
       xAxis={[{ scaleType: 'band', dataKey: 'source', }]}
       series={[
-        { dataKey: 'data', valueFormatter,color:'#E0CCBE' },
+        { dataKey: 'data', valueFormatter,color:'#fff' },
       ]}
       {...chartSettingBar}
     />
@@ -618,7 +630,7 @@ export default function Dashboard() {
         <Grid size={{xs:12,md:6}}>
             <Box sx={{
               width:'100%',
-              backgroundColor:"#E0CCBE",
+              backgroundColor:"#fff",
               height:'auto',
               borderRadius:'10px',
               paddingLeft:'15px',
@@ -628,7 +640,7 @@ export default function Dashboard() {
               marginBottom:'10px'
             }}>
                  <Typography sx={{
-          color:'#3C3633',
+          color:'#48BED9',
           fontWeight:500,
           textAlign:'start',
           marginBottom:'10px'
@@ -645,21 +657,21 @@ export default function Dashboard() {
               alignItems:'flex-start',
               justifyContent:'center',
               paddingLeft:'10px',
-              borderLeft:'1px solid #3C3633'
+              borderLeft:'1px solid #00A9F2'
             }}>
               <Typography sx={{
-                color:'#3C3633'
+                color:'#00A9F2'
               }} variant='body2'>
                 Current Result
               </Typography>
               <Typography sx={{
-                color:'#3C3633'
+                color:'#00A9F2'
               }} variant='h6'>
                 $52,654,450
               </Typography>
               <Box sx={{
                 marginTop:'10px',
-                backgroundImage:'linear-gradient(to right, #3C3633,#817773)',
+                backgroundImage:'linear-gradient(to right, #fff,#00A9F2)',
                 width:'90%',
                 height:'30px',
                 borderRadius:'5px'
@@ -677,21 +689,21 @@ export default function Dashboard() {
               alignItems:'flex-start',
               justifyContent:'center',
               paddingLeft:'10px',
-              borderLeft:'1px solid #616161',
+              borderLeft:'1px solid #00A9F2',
             }}>
               <Typography sx={{
-                color:'#3C3633'
+                color:'#00A9F2'
               }} variant='body2'>
                 Left Pain
               </Typography>
               <Typography sx={{
-                color:'#3C3633'
+                color:'#00A9F2'
               }} variant='h6'>
                 $7,566,116
               </Typography>
               <Box sx={{
                 marginTop:'10px',
-                backgroundImage:'linear-gradient(to right, #3C3633,#817773)',
+                backgroundImage:'linear-gradient(to right, #fff,#00A9F2)',
                 width:'90%',
                 height:'30px',
                 borderRadius:'5px'
@@ -702,7 +714,7 @@ export default function Dashboard() {
           </Grid>
         </Grid>
         <Typography variant='body2' sx={{
-                color:'#3C3633',
+                color:'#48BED9',
                 position:'absolute',
                 top:'10px',
                 right:'10px',
@@ -720,7 +732,7 @@ export default function Dashboard() {
                 },
                 flexDirection:'column',
               width:'100%',
-              backgroundColor:"#CCC5B9",
+              backgroundImage:'linear-gradient(to right, #48BED9,#00E2E0)',
               height:'auto',
               borderRadius:'10px',
               paddingLeft:'15px',
@@ -729,7 +741,7 @@ export default function Dashboard() {
               position:'relative'
             }}>
               <Typography sx={{
-          color:'#3C3633',
+          color:'#fff',
           fontWeight:500,
           textAlign:'start',
           marginBottom:'10px'
@@ -738,14 +750,14 @@ export default function Dashboard() {
               </Typography>
               <Box sx={{
               width:'100%',
-              backgroundColor:"#CCC5B9",
+              backgroundImage:'linear-gradient(to right, #48BED9,#00E2E0)',
               height:'auto',
             }}>
               <BarChart
       dataset={dataset}
       xAxis={[{ scaleType: 'band', dataKey: 'month', }]}
       series={[
-        { dataKey: 'sales', valueFormatter,color:'#809671' },
+        { dataKey: 'sales', valueFormatter,color:'#fff' },
         
       ]}
       {...chartSetting}
@@ -758,5 +770,8 @@ export default function Dashboard() {
     </Box>
       
     </Box>
+    </motion.div>
+    </AnimatePresence>
+    </>
   );
 }

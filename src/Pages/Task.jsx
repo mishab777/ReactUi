@@ -8,8 +8,8 @@ import { Box,Button,TextField,Typography,Alert,Tooltip } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import VerifiedIcon from '@mui/icons-material/Verified';
 import FeedbackIcon from '@mui/icons-material/Feedback';
+import Navbar from "../components/Navbar";
 
 
 const Task = () => {
@@ -65,7 +65,7 @@ const Task = () => {
         {...listeners}
         sx={{
           marginBottom: "5px",
-          background: "#EEEDEB",
+          background: "#fff",
           cursor:'pointer',
           height:'auto',
           padding:'8px',
@@ -83,7 +83,7 @@ const Task = () => {
             justifyContent:'center',
             alignItems:'center',
             borderRadius:'10px',
-            backgroundColor:'#524433'
+            backgroundColor:'#00A9F2'
         }}>
             <AssignmentIcon sx={{
                 color:'white'
@@ -127,8 +127,9 @@ const Task = () => {
   };
 
   return (
-    <Box sx={{ padding: "20px",width:'100%',backgroundImage:'linear-gradient(to right, #fff,#d1d1d1)', }}>
-      
+    <>
+    <Navbar/>
+    <Box sx={{ padding: "20px",width:'100%',backgroundImage:'linear-gradient(to right, #fff,#00A9F2)', }}>
       <Box sx={{
             width:'100%',
             display:'flex',
@@ -137,8 +138,8 @@ const Task = () => {
             justifyContent:'space-between',
             marginBottom:'10px'
         }}>
-        <Typography variant='h5' sx={{
-            color:'#3C3633',
+        <Typography variant='h4' sx={{
+            color:'#00A9F2',
             fontWeight:500
         }}>
             Tasks
@@ -148,9 +149,9 @@ const Task = () => {
               flexDirection:'row',
               alignItems:'center',
               justifyContent:'center',
-              backgroundColor:'#817773',
+              backgroundColor:'#fff',
               textTransform:'none',
-              color:"#fff",
+              color:"#00A9F2",
               borderRadius:'30px',
               paddingRight:'15px',
               paddingLeft:'15px',
@@ -168,11 +169,12 @@ const Task = () => {
             md:6,
             xs:12
         }}>
-            <Box sx={{ padding: "10px", width: "100%" ,marginBottom:'10px', backgroundImage:'linear-gradient(to right, #A38F85,#bdaba2)',borderRadius:'10px' }}>
+            <Box sx={{ padding: "10px", width: "100%" ,marginBottom:'10px', backgroundImage:'linear-gradient(to bottom, #00A9F2,#00E2E0)',borderRadius:'10px' }}>
                   <Typography variant="h5" sx={{
                     color:'#fff',
                     textAlign:'center',
-                    margin:'10px'
+                    margin:'10px',
+                    fontWeight:500,
                   }}>Un-ranked Tasks</Typography>
           <DroppableArea id="card-1">
             {tasks.map((task) => (
@@ -219,11 +221,11 @@ const Task = () => {
               onChange={handleNewTaskChange}
             />
             <Button sx={{
-                backgroundColor:'#A38F85',
-                color:'#EEEDEB',
+                backgroundColor:'#00A9F2',
+                color:'#fff',
                 width:'100%',
                 '&:hover': {
-                    backgroundColor: '#524433',
+                    backgroundColor: '#48BED9',
                     color: 'white',
                   },
             }} onClick={addNewTask}>Add Task</Button>
@@ -234,19 +236,20 @@ const Task = () => {
             md:6,
             xs:12
         }}>
-            <Box sx={{ borderRadius:'10px', padding: "10px", width: "100%",backgroundImage:'linear-gradient(to right, #A38F85,#bdaba2)', }}>
+            <Box sx={{ borderRadius:'10px', padding: "10px", width: "100%",backgroundColor:'#fff' }}>
           <Typography variant="h5" sx={{
-            color:'white',
+            color:'#00A9F2',
             textAlign:'center',
+            fontWeight:500,
             margin:'10px'
           }}>Ranked Tasks</Typography>
           <DroppableArea id="card-2">
           {rankedTasks.length === 0 ? (
           <Alert sx={{
-            backgroundColor:'#EEEDEB',
-            color:'#524433'
+            backgroundColor:'#00A9F2',
+            color:'#fff'
           }} icon={<FeedbackIcon sx={{
-            color:'#524433'
+            color:'#fff'
           }} fontSize="inherit" />} severity="success">
           No ranked tasks. Drag tasks here to organize them.
         </Alert>
@@ -261,42 +264,39 @@ const Task = () => {
                   flexDirection:'column',
                   alignItems:'flex-start',
                   justifyContent:'flex-start',
-                  backgroundColor:'#EEEDEB',
+                  backgroundColor:'#00A9F2',
                   borderRadius:'8px',
-                  gap:'5px',
+                  position:'relative'
                 }}
               >
                 <Box sx={{
                     display:'flex',
                     flexDirection:'row',
                     alignItems:'center',
-                    justifyContent:'flex-start',
-                    gap:'5px'
-                }}>
-                <Typography>
-                    Rank
-                </Typography>
-                <Typography sx={{
-                    backgroundColor:'#524433',
-                    color:'#EEEDEB',
-                    height:'20px',
-                    width:'20px',
-                    display:'flex',
-                    alignItems:'center',
                     justifyContent:'center',
-                    borderRadius:'50%',
-                }}> {task.rank} 
+                    gap:'5px',
+                    position:'absolute',
+                    top:'10px',
+                    right:'10px',
+                    padding:'5px',
+                    borderRadius:'5px',
+                    backgroundColor:'#fff'
+                }}>
+                <Typography sx={{
+                  color:'#00A9F2',
+                }}>
+                    Rank : {task.rank} 
                 </Typography>
                 </Box>
                 <Typography variant="body1" sx={{
-                    color:'#524433',
+                    color:'#fff',
                     width:'auto',
                     fontWeight:500
                 }}>
                 {task.name}
                 </Typography>
                 <Typography sx={{
-                    color:'gray'
+                    color:'#fff'
                 }}>{task.description}</Typography>
               </Box>
             ))
@@ -307,6 +307,7 @@ const Task = () => {
         </Grid>
       </DndContext>
     </Box>
+    </>
   );
 };
 

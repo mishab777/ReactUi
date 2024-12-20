@@ -11,19 +11,29 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate,useLocation,Link } from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
 import LineAxisIcon from '@mui/icons-material/LineAxis';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import logo from "../assets/logo-t.png"
 
 
-const pages = ['Dashboard', 'Task', 'Weather'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Logout'];
 
 export function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+
+
+  const location = useLocation(); 
+  const currentPage = location.pathname;
+
+
+
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -34,24 +44,31 @@ export function Navbar() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+    
+  };
+  const handleCloseNavMenutask = () => {
+    setAnchorElNav(null);
+    navigate('/task')
+  };
+  const handleCloseNavMenuweather = () => {
+    setAnchorElNav(null);
+    navigate('/weather')
+  };
+  const handleCloseNavMenudashboard = () => {
+    setAnchorElNav(null);
+    navigate('/dashboard')
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    navigate('/')
   };
 
-  const navigate = useNavigate();
 
-  const handleweather = ()=>{
-    navigate('/weather')
-  }
-  const handletask = ()=>{
-    navigate('/task')
-  }
 
   return (
     <AppBar position="static" sx={{
-        backgroundImage:'linear-gradient(to right, #fff,#d1d1d1)',
+      backgroundImage:'linear-gradient(to right, #fff,#00A9F2)',
         boxShadow:'none',
         height: '80px'
     }}>
@@ -62,6 +79,7 @@ export function Navbar() {
             boxShadow:'none'
         }}>
           <Typography
+          onClick={handleCloseNavMenudashboard}
             variant="h6"
             noWrap
             component="a"
@@ -71,12 +89,14 @@ export function Navbar() {
               display: { xs: 'none', md: 'flex',alignItems: 'center',justifyContent: 'center' },
               fontWeight: 700,
               letterSpacing: '.1rem',
-              color: '#3C3633',
+              color: '#48BED9',
               textDecoration: 'none',
             }}
           >
-            <LineAxisIcon sx={{
-                marginRight: '5px'
+            <Box src={logo} component="img" sx={{
+                marginRight: '5px',
+                width:'30px',
+                height:'30px'
             }}/>
             Taskify
           </Typography>
@@ -108,14 +128,24 @@ export function Navbar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                <MenuItem onClick={handleCloseNavMenudashboard}>
+                  <Typography sx={{ textAlign: 'center' }}>Dashboard</Typography>
                 </MenuItem>
-              ))}
+                <MenuItem onClick={handleCloseNavMenutask}>
+                  <Typography sx={{ textAlign: 'center' }}>Task</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenuweather}>
+                  <Typography sx={{ textAlign: 'center' }}>Weather</Typography>
+                </MenuItem>
             </Menu>
           </Box>
-          <LineAxisIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1,color:'#524433'}}/>
+          <Box src={logo} component="img" sx={{
+            display: { xs: 'flex', md: 'none' },
+            mr: 1,
+                marginRight: '5px',
+                width:'30px',
+                height:'30px'
+            }}/>
           <Typography
             variant="h5"
             noWrap
@@ -127,53 +157,115 @@ export function Navbar() {
               flexGrow: 1,
               fontWeight: 700,
               letterSpacing: '.1rem',
-              color: '#524433',
+              color: '#fff',
               textDecoration: 'none',
             }}
           >
             Taskify
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex',alignItems:'center',justifyContent:'center'} }}>
-            <Box sx={{
-                height: '50px',
-                paddingRight:'10px',
-                paddingLeft:'10px',
-                 display:'flex',
-                 alignItems:'center',
-                 justifyContent:'center',
-                 backgroundColor:'#524433',
-                 borderRadius:'30px',
-                 marginTop:'10px',
-                 gap:'8px'
-            }}>
-              <Button
-                sx={{ textTransform: 'none', my: 2, color: 'black', display: 'block',backgroundColor: '#E0CCBE',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '30px' }}
-              >
-                Dashboard     
-              </Button>
-              <Button onClick={handletask}
-                sx={{ textTransform: 'none',my: 2, color: '#EEEDEB', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
-              >
-                Task     
-              </Button>
-              <Button onClick={handleweather}
-                sx={{ textTransform: 'none',my: 2, color: '#EEEDEB', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
-              >
-                Weather     
-              </Button>
-              <Button
-                sx={{ textTransform: 'none',my: 2, color: '#EEEDEB', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
-              >
-                Employee     
-              </Button>
-              <Button
-                sx={{ textTransform: 'none',my: 2, color: '#EEEDEB', display: 'block',backgroundColor: '#black',fontSize: '14px',paddingRight: '12px',paddingLeft: '12px',borderRadius: '20px' }}
-              >
-                Report     
-              </Button>
-              </Box>
+          <Box
+      sx={{
+        height: '50px',
+        paddingRight: '10px',
+        paddingLeft: '10px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+        borderRadius: '30px',
+        marginTop: '10px',
+        gap: '8px',
+      }}
+    >
+      <Button
+        component={Link}
+        to="/dashboard"
+        sx={{
+          textTransform: 'none',
+          my: 2,
+          color: currentPage === '/dashboard' ? '#fff' : '#48BED9',
+          display: 'block',
+          backgroundColor: currentPage === '/dashboard' ? '#48BED9' : '#black',
+          fontSize: '14px',
+          paddingRight: '12px',
+          paddingLeft: '12px',
+          borderRadius: '30px',
+        }}
+      >
+        Dashboard
+      </Button>
+      <Button
+        component={Link}
+        to="/task"
+        sx={{
+          textTransform: 'none',
+          my: 2,
+          color: currentPage === '/task' ? '#fff' : '#48BED9',
+          display: 'block',
+          backgroundColor: currentPage === '/task' ? '#48BED9' : '#black',
+          fontSize: '14px',
+          paddingRight: '12px',
+          paddingLeft: '12px',
+          borderRadius: '20px',
+        }}
+      >
+        Task
+      </Button>
+      <Button
+        component={Link}
+        to="/weather"
+        sx={{
+          textTransform: 'none',
+          my: 2,
+          color: currentPage === '/weather' ? '#fff' : '#48BED9',
+          display: 'block',
+          backgroundColor: currentPage === '/weather' ? '#48BED9' : '#black',
+          fontSize: '14px',
+          paddingRight: '12px',
+          paddingLeft: '12px',
+          borderRadius: '20px',
+        }}
+      >
+        Weather
+      </Button>
+      <Button
+        component={Link}
+        to=""
+        sx={{
+          textTransform: 'none',
+          my: 2,
+          color: currentPage === '/employee' ? '#fff' : '#48BED9',
+          display: 'block',
+          backgroundColor: currentPage === '/employee' ? '#48BED9' : '#black',
+          fontSize: '14px',
+          paddingRight: '12px',
+          paddingLeft: '12px',
+          borderRadius: '20px',
+        }}
+      >
+        Employee
+      </Button>
+      <Button
+        component={Link}
+        to=""
+        sx={{
+          textTransform: 'none',
+          my: 2,
+          color: currentPage === '/report' ? '#fff' : '#48BED9',
+          display: 'block',
+          backgroundColor: currentPage === '/report' ? '#48BED9' : '#black',
+          fontSize: '14px',
+          paddingRight: '12px',
+          paddingLeft: '12px',
+          borderRadius: '20px',
+        }}
+      >
+        Report
+      </Button>
+    </Box>
           </Box>
-          <Box sx={{ flexGrow: 0 ,flexDirection:'row',display: 'flex',alignItems:'center',justifyContent:'center',backgroundColor:'#524433',padding:'5px',borderRadius:'30px'}}>
+          <Box sx={{ flexGrow: 0 ,flexDirection:'row',display: 'flex',alignItems:'center',justifyContent:'center',backgroundColor:'#fff',cursor:'pointer',padding:'5px',borderRadius:'30px'}}>
             <Box
             component='img'
             src='https://img.freepik.com/premium-photo/happy-man-ai-generated-portrait-user-profile_1119669-1.jpg'
@@ -187,7 +279,8 @@ export function Navbar() {
             <Typography sx={{
                 fontSize: '12px',
                 marginLeft: '5px',
-                color:'#EEEDEB',
+                color:'#00A9F2',
+                fontWeight:500,
                 display:{
                     xs:'none',
                     md:'flex'
@@ -197,7 +290,7 @@ export function Navbar() {
             </Typography>
             <Tooltip title="Open settings">
                 <KeyboardArrowDownIcon sx={{
-                  color:'#EEEDEB'
+                  color:'#00A9F2',
                 }} onClick={handleOpenUserMenu}/>
             </Tooltip>
             <Menu
@@ -216,11 +309,9 @@ export function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
                 </MenuItem>
-              ))}
             </Menu>
           </Box>
         </Toolbar>

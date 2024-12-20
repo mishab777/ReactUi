@@ -5,7 +5,10 @@ const Currentweather = ({data}) =>{
     return(
         <>
         <Box sx={{
-            backgroundImage:'linear-gradient(to right, #A38F85,#bdaba2)',
+            backgroundImage:{
+                xs:'linear-gradient(to bottom, #00A9F2,#48BED9)',
+                md:'linear-gradient(to right, #00A9F2,#48BED9)'
+            },
             width:'100%',
             marginTop:'20px',
             marginBottom:'10px',
@@ -37,7 +40,7 @@ const Currentweather = ({data}) =>{
                     marginBottom:'10px'
                 }}>
                     <Typography variant="h6" sx={{
-                        color:'white'
+                        color:'#fff'
                     }}>Details</Typography>
                 </Box>
                 <Box sx={{
